@@ -5,14 +5,20 @@
     <span class="addContainer" v-on:click="addTodo">
       <i class="fas fa-plus-circle addBtn"></i>
     </span>
+    <Modal v-if="showModal" @close="showModal = false">
+      <h3 slot="header">custom header</h3>
+    </Modal>
   </div>
 </template>
 
 <script>
+import Modal from './common/Modal.vue';
+
 export default {
   data: function() {
     return {
-      newTodoItem: ''
+      newTodoItem: '',
+      showModal: false
     };
   },
 
@@ -22,11 +28,15 @@ export default {
         //이벤트 발생시키면서 App.vue로 this.newTodoItem인자값 전달
         this.$emit('addTodoItem', this.newTodoItem);
         this.clearInput();
+      } else {
       }
     },
     clearInput: function() {
       this.newTodoItem = '';
     }
+  },
+  components: {
+    Modal: Modal
   }
 };
 </script>
