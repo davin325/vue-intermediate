@@ -16,8 +16,6 @@ export default {
   methods: {
     addTodo: function() {
       // this는 data랑 methods가 들어간 인스턴스(TodoInput.vue)를 가리킴
-      console.log(this.newTodoItem);
-      // 저장하는 로직
       localStorage.setItem(this.newTodoItem, this.newTodoItem);
       // https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
       this.newTodoItem = '';
