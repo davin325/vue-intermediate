@@ -8,8 +8,7 @@
 export default {
   methods: {
     clearAll: function() {
-      console.log('clear All');
-      localStorage.clear();
+      this.$emit('clearAll');
     }
   }
 };
