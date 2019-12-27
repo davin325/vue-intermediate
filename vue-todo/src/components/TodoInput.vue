@@ -6,7 +6,7 @@
       <i class="fas fa-plus-circle addBtn"></i>
     </span>
     <Modal v-if="showModal" @close="showModal = false">
-      <h3 slot="header">custom header</h3>
+      <h3 slot="header">경고오</h3>
     </Modal>
   </div>
 </template>
@@ -29,6 +29,7 @@ export default {
         this.$emit('addTodoItem', this.newTodoItem);
         this.clearInput();
       } else {
+        this.showModal = true;
       }
     },
     clearInput: function() {

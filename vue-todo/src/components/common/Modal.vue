@@ -3,14 +3,18 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
+          <!-- Modal.vue를 등록한 컴포넌트(TodoInput.vue)에서 모달헤더,바디,푸터를 재정의 할 수 있음 -->
+          <!-- 모달 헤더 -->
           <div class="modal-header">
             <slot name="header">default header</slot>
           </div>
 
+          <!-- 모달 바디 -->
           <div class="modal-body">
             <slot name="body">default body</slot>
           </div>
 
+          <!-- 모달 푸터 -->
           <div class="modal-footer">
             <slot name="footer">
               default footer
