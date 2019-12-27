@@ -18,10 +18,15 @@ export default {
 
   methods: {
     addTodo: function() {
-      // this는 data랑 methods가 들어간 인스턴스(TodoInput.vue)를 가리킴
-      // https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
-      localStorage.setItem(this.newTodoItem, this.newTodoItem);
-      this.clearInput();
+      if (this.newTodoItem !== '') {
+        // this는 data랑 methods가 들어간 인스턴스(TodoInput.vue)를 가리킴
+        // https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
+        // JSON.stringify(obj) : obj의 값을 String으로 변환시킴
+
+        var obj = { completed: false, item: this.newTodoItem };
+        localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+        this.clearInput();
+      }
     },
     clearInput: function() {
       this.newTodoItem = '';

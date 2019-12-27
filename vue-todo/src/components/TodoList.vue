@@ -1,8 +1,14 @@
 <template>
   <div>
     <ul>
-      <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem" class="shadow">
-        {{todoItem}}
+      <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem.item" class="shadow">
+        <i
+          class="checkBtn fas fa-check"
+          v-bind:class="{checkBtnCompleted : todoItem.completed }"
+          v-on:click="toggleComplete(todoItem,index)"
+        ></i>
+        <!-- 태그명 v-bind:class="{클래스명: boolean값}"> =>클래스 명을 불리언 값으로 정의 -->
+        <span v-bind:class="{textCompleted : todoItem.completed}">{{todoItem.item}}</span>
         <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
           <i class="fas fa-trash-alt"></i>
         </span>
@@ -23,7 +29,10 @@ export default {
     if (localStorage.length > 0) {
       for (var i = 0; i < localStorage.length; i++) {
         if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
-          this.todoItems.push(localStorage.key(i));
+          //JSON.parse() String을 객체로
+          this.todoItems.push(
+            JSON.parse(localStorage.getItem(localStorage.key(i)))
+          );
         }
       }
     }
@@ -34,12 +43,18 @@ export default {
       localStorage.removeItem(todoItem);
       this.todoItems.splice(index, 1);
       //https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+    },
+    toggleComplete: function(todoItem, index) {
+      console.log('clicked');
+      todoItem.completed = !todoItem.completed;
+      localStorage.removeItem(todoItem.item);
+      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
 ul {
   list-style-type: none;
   padding-left: 0px;
