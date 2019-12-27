@@ -4,7 +4,11 @@
     <!-- v-on:하위 컴포넌트에서 발생시킨 이벤트 이름 ="현재 컴포넌트의 메서드 명" -->
     <TodoHeader></TodoHeader>
     <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
-    <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOne"></TodoList>
+    <TodoList
+      v-bind:propsdata="todoItems"
+      v-on:removeItem="removeOne"
+      v-on:toggleItem="toggleOneItem"
+    ></TodoList>
     <TodoFooter></TodoFooter>
   </div>
 </template>
@@ -36,8 +40,16 @@ export default {
       localStorage.removeItem(todoItem.item);
       this.todoItems.splice(index, 1);
       //https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+    },
+    toggleOneItem: function(todoItem, index) {
+      // props로 내렸다가 올라온 값을 변경하는것은 좋지않음
+      // todoItem.completed = !todoItem.completed;
+      this.todoItems[index].completed = !this.todoItems[index].completed;
+      localStorage.removeItem(todoItem.item);
+      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     }
   },
+
   //인스턴스가 생성되자마자 호출되는 라이프사이클
   created: function() {
     if (localStorage.length > 0) {
