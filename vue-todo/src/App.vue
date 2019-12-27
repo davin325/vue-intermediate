@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <TodoHeader></TodoHeader>
-    <TodoInput></TodoInput>
     <!-- v-bind:내려보낼 프롭스 속성이름 = "현재 위치의 컴포넌트 데이터 속성" -->
+    <!-- v-on:하위 컴포넌트에서 발생시킨 이벤트 이름 ="현재 컴포넌트의 메서드 명" -->
+    <TodoHeader></TodoHeader>
+    <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
     <TodoList v-bind:propsdata="todoItems"></TodoList>
     <TodoFooter></TodoFooter>
   </div>
@@ -20,6 +21,17 @@ export default {
     return {
       todoItems: []
     };
+  },
+  methods: {
+    addOneItem: function(todoItem) {
+      // this는 data랑 methods가 들어간 인스턴스(TodoInput.vue)를 가리킴
+      // https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
+      // JSON.stringify(obj) : obj의 값을 String으로 변환시킴
+
+      var obj = { completed: false, item: todoItem };
+      localStorage.setItem(todoItem, JSON.stringify(obj));
+      this.todoItems.push(obj);
+    }
   },
   //인스턴스가 생성되자마자 호출되는 라이프사이클
   created: function() {

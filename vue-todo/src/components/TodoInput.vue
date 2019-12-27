@@ -19,12 +19,8 @@ export default {
   methods: {
     addTodo: function() {
       if (this.newTodoItem !== '') {
-        // this는 data랑 methods가 들어간 인스턴스(TodoInput.vue)를 가리킴
-        // https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
-        // JSON.stringify(obj) : obj의 값을 String으로 변환시킴
-
-        var obj = { completed: false, item: this.newTodoItem };
-        localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+        //이벤트 발생시키면서 App.vue로 this.newTodoItem인자값 전달
+        this.$emit('addTodoItem', this.newTodoItem);
         this.clearInput();
       }
     },
