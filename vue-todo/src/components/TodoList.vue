@@ -22,10 +22,7 @@ export default {
   props: ['propsdata'],
   methods: {
     removeTodo: function(todoItem, index) {
-      console.log(todoItem, index);
-      localStorage.removeItem(todoItem);
-      this.propsdata.splice(index, 1);
-      //https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+      this.$emit('removeItem', todoItem, index);
     },
     toggleComplete: function(todoItem, index) {
       console.log('clicked');
