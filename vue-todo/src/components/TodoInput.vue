@@ -16,28 +16,28 @@
 </template>
 
 <script>
-import Modal from "./common/Modal.vue";
+import Modal from './common/Modal.vue';
 
 export default {
-  data: function() {
+  data() {
     return {
-      newTodoItem: "",
+      newTodoItem: '',
       showModal: false
     };
   },
 
   methods: {
-    addTodo: function() {
-      if (this.newTodoItem !== "") {
+    addTodo() {
+      if (this.newTodoItem !== '') {
         //이벤트 발생시키면서 App.vue로 this.newTodoItem인자값 전달
-        this.$emit("addTodoItem", this.newTodoItem);
+        this.$emit('addTodoItem', this.newTodoItem);
         this.clearInput();
       } else {
         this.showModal = true;
       }
     },
-    clearInput: function() {
-      this.newTodoItem = "";
+    clearInput() {
+      this.newTodoItem = '';
     }
   },
   components: {

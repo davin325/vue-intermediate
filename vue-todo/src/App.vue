@@ -21,13 +21,13 @@ import TodoList from './components/TodoList.vue';
 import TodoFooter from './components/TodoFooter.vue';
 
 export default {
-  data: function() {
+  data() {
     return {
       todoItems: []
     };
   },
   methods: {
-    addOneItem: function(todoItem) {
+    addOneItem(todoItem) {
       // this는 data랑 methods가 들어간 인스턴스(TodoInput.vue)를 가리킴
       // https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
       // JSON.stringify(obj) : obj의 값을 String으로 변환시킴
@@ -36,26 +36,26 @@ export default {
       localStorage.setItem(todoItem, JSON.stringify(obj));
       this.todoItems.push(obj);
     },
-    removeOne: function(todoItem, index) {
+    removeOne(todoItem, index) {
       localStorage.removeItem(todoItem.item);
       this.todoItems.splice(index, 1);
       //https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
     },
-    toggleOneItem: function(todoItem, index) {
+    toggleOneItem(todoItem, index) {
       // props로 내렸다가 올라온 값을 변경하는것은 좋지않음
       // todoItem.completed = !todoItem.completed;
       this.todoItems[index].completed = !this.todoItems[index].completed;
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     },
-    clearAllItems: function() {
+    clearAllItems() {
       localStorage.clear();
       this.todoItems.splice(0);
     }
   },
 
   //인스턴스가 생성되자마자 호출되는 라이프사이클
-  created: function() {
+  created() {
     if (localStorage.length > 0) {
       for (let i = 0; i < localStorage.length; i++) {
         if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
