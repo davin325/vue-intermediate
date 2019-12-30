@@ -32,7 +32,7 @@ export default {
       // https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
       // JSON.stringify(obj) : obj의 값을 String으로 변환시킴
 
-      var obj = { completed: false, item: todoItem };
+      const obj = { completed: false, item: todoItem };
       localStorage.setItem(todoItem, JSON.stringify(obj));
       this.todoItems.push(obj);
     },
@@ -57,7 +57,7 @@ export default {
   //인스턴스가 생성되자마자 호출되는 라이프사이클
   created: function() {
     if (localStorage.length > 0) {
-      for (var i = 0; i < localStorage.length; i++) {
+      for (let i = 0; i < localStorage.length; i++) {
         if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
           //JSON.parse() String을 객체로
           this.todoItems.push(
