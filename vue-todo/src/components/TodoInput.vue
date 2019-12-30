@@ -30,7 +30,8 @@ export default {
     addTodo() {
       if (this.newTodoItem !== '') {
         //이벤트 발생시키면서 App.vue로 this.newTodoItem인자값 전달
-        this.$emit('addTodoItem', this.newTodoItem);
+        // this.$emit('addTodoItem', this.newTodoItem);
+        this.$store.commit('addOneItem', this.newTodoItem);
         this.clearInput();
       } else {
         this.showModal = true;

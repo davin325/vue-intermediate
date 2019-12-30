@@ -3,7 +3,7 @@
     <!-- v-bind:내려보낼 프롭스 속성이름 = "현재 위치의 컴포넌트 데이터 속성" -->
     <!-- v-on:하위 컴포넌트에서 발생시킨 이벤트 이름 ="현재 컴포넌트의 메서드 명" -->
     <TodoHeader></TodoHeader>
-    <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
+    <TodoInput></TodoInput>
     <TodoList
       v-bind:propsdata="todoItems"
       v-on:removeItem="removeOne"
@@ -27,15 +27,15 @@ export default {
     };
   },
   methods: {
-    addOneItem(todoItem) {
-      // this는 data랑 methods가 들어간 인스턴스(TodoInput.vue)를 가리킴
-      // https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
-      // JSON.stringify(obj) : obj의 값을 String으로 변환시킴
+    // addOneItem(todoItem) {
+    //   // this는 data랑 methods가 들어간 인스턴스(TodoInput.vue)를 가리킴
+    //   // https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
+    //   // JSON.stringify(obj) : obj의 값을 String으로 변환시킴
 
-      const obj = { completed: false, item: todoItem };
-      localStorage.setItem(todoItem, JSON.stringify(obj));
-      this.todoItems.push(obj);
-    },
+    //   const obj = { completed: false, item: todoItem };
+    //   localStorage.setItem(todoItem, JSON.stringify(obj));
+    //   this.todoItems.push(obj);
+    // },
     removeOne(todoItem, index) {
       localStorage.removeItem(todoItem.item);
       this.todoItems.splice(index, 1);
@@ -54,19 +54,6 @@ export default {
     }
   },
 
-  //인스턴스가 생성되자마자 호출되는 라이프사이클
-  created() {
-    if (localStorage.length > 0) {
-      for (let i = 0; i < localStorage.length; i++) {
-        if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
-          //JSON.parse() String을 객체로
-          this.todoItems.push(
-            JSON.parse(localStorage.getItem(localStorage.key(i)))
-          );
-        }
-      }
-    }
-  },
   components: {
     //컴포넌트 태그명 : 컴포넌트 내용
     //객체의 속성명과 값 명이 동일할때 축약가능
