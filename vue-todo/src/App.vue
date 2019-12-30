@@ -69,10 +69,11 @@ export default {
   },
   components: {
     //컴포넌트 태그명 : 컴포넌트 내용
-    TodoHeader: TodoHeader,
-    TodoInput: TodoInput,
-    TodoList: TodoList,
-    TodoFooter: TodoFooter
+    //객체의 속성명과 값 명이 동일할때 축약가능
+    TodoHeader,
+    TodoInput,
+    TodoList,
+    TodoFooter
   }
 };
 </script>
