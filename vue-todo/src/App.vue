@@ -4,12 +4,8 @@
     <!-- v-on:하위 컴포넌트에서 발생시킨 이벤트 이름 ="현재 컴포넌트의 메서드 명" -->
     <TodoHeader></TodoHeader>
     <TodoInput></TodoInput>
-    <TodoList
-      v-bind:propsdata="todoItems"
-      v-on:removeItem="removeOne"
-      v-on:toggleItem="toggleOneItem"
-    ></TodoList>
-    <TodoFooter v-on:clearAll="clearAllItems"></TodoFooter>
+    <TodoList></TodoList>
+    <TodoFooter></TodoFooter>
   </div>
 </template>
 
@@ -21,39 +17,6 @@ import TodoList from './components/TodoList.vue';
 import TodoFooter from './components/TodoFooter.vue';
 
 export default {
-  data() {
-    return {
-      todoItems: []
-    };
-  },
-  methods: {
-    // addOneItem(todoItem) {
-    //   // this는 data랑 methods가 들어간 인스턴스(TodoInput.vue)를 가리킴
-    //   // https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
-    //   // JSON.stringify(obj) : obj의 값을 String으로 변환시킴
-
-    //   const obj = { completed: false, item: todoItem };
-    //   localStorage.setItem(todoItem, JSON.stringify(obj));
-    //   this.todoItems.push(obj);
-    // },
-    removeOne(todoItem, index) {
-      localStorage.removeItem(todoItem.item);
-      this.todoItems.splice(index, 1);
-      //https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
-    },
-    toggleOneItem(todoItem, index) {
-      // props로 내렸다가 올라온 값을 변경하는것은 좋지않음
-      // todoItem.completed = !todoItem.completed;
-      this.todoItems[index].completed = !this.todoItems[index].completed;
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
-    },
-    clearAllItems() {
-      localStorage.clear();
-      this.todoItems.splice(0);
-    }
-  },
-
   components: {
     //컴포넌트 태그명 : 컴포넌트 내용
     //객체의 속성명과 값 명이 동일할때 축약가능
