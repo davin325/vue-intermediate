@@ -2,18 +2,18 @@
   <div>
     <transition-group name="list" tag="ul">
       <li
-        v-for="(todoItem, index) in this.$store.state.todoItems"
+        v-for="(todoItem, index) in this.storedTodoItems"
         v-bind:key="todoItem.item"
         class="shadow"
       >
         <i
           class="checkBtn fas fa-check"
           v-bind:class="{checkBtnCompleted : todoItem.completed }"
-          v-on:click="toggleComplete(todoItem,index)"
+          v-on:click="toggleComplete({todoItem,index})"
         ></i>
         <!-- 태그명 v-bind:class="{클래스명: boolean값}"> =>클래스 명을 불리언 값으로 정의 -->
         <span v-bind:class="{textCompleted : todoItem.completed}">{{todoItem.item}}</span>
-        <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
+        <span class="removeBtn" v-on:click="removeTodo({todoItem, index})">
           <i class="fas fa-trash-alt"></i>
         </span>
       </li>
@@ -22,14 +22,21 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex';
+
 export default {
   methods: {
-    removeTodo(todoItem, index) {
-      this.$store.commit('removeOneItem', { todoItem, index });
-    },
-    toggleComplete(todoItem, index) {
-      this.$store.commit('toggleOneItem', { todoItem, index });
-    }
+    //매개변수 선언안해도 호출단에 있으면 암묵적으로 넘어감
+    //호출시 매개변수를 객체로 선언해서 객체 1개만 넘기도록
+    ...mapMutations({
+      removeTodo: 'removeOneItem'
+    }),
+    ...mapMutations({
+      toggleComplete: 'toggleOneItem'
+    })
+  },
+  computed: {
+    ...mapGetters(['storedTodoItems'])
   }
 };
 </script>
